@@ -1,0 +1,6 @@
+🍾 Welcome to JoiChat!
+
+🕊️ JoiChat Is a Powerful, Open-source Tool That Allows You to Access ChatSonic Through Telegram.
+
+⚙️ If You Are Interested in Bot's Functionality, Use /source to Find out More!
+Otherwise, Simply Start Chatting with Me!
