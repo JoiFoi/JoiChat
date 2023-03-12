@@ -2,6 +2,7 @@
 
 import requests
 import json
+import DataProcessor
 
 bot_token = <bot_token> # Replace <bot_token> with your actual bot token
 chatSonic_token = <chatSonic_token> # Replace <chatSonic_token> with your actual ChatSonic token
@@ -43,12 +44,14 @@ def message_handler(update_content):
     if update_content['result'][0]['message']['text'] == '/start': # /start
         send_message(update_content['result'][0]['message']['chat']['id'] , open('PreWrittenMessages/start.txt' , mode = 'r').read())
         send_message(update_content['result'][0]['message']['chat']['id'] , 'Hello, how may I assist you today?')
+        DataProcessor.file_creator(update_content)
 
     elif update_content['result'][0]['message']['text'] == '/source': # /source
         send_message(update_content['result'][0]['message']['chat']['id'] , open('PreWrittenMessages/source.txt' , mode = 'r').read())
 
     else:
         chatsonic_API(update_content['result'][0]['message']['chat']['id'] , update_content['result'][0]['message']['text'])
+        DataProcessor.data_collector(update_content)
           
 
 # Main block
