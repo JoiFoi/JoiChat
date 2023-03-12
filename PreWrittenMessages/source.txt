@@ -3,4 +3,4 @@ It's Written in Python Using TelegramAPI
 
 JoiGPT GitHub Page: https://github.com/JoiFoi/JoiChat
 Powered by Chatsonic: https://writesonic.com/chat
-© Released under Mit License
+© Released under MIT License
