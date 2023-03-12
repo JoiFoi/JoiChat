@@ -8,8 +8,9 @@ def file_creator(update_content):
     user_firstname = update_content['result'][0]['message']['chat']['first_name']
     try: # The file doesn't exist
         open(f'DataBase/{user_id}' , 'x')
-        with open('DataBase/UsersList.txt' , 'a') as UsersList_file:
-            UsersList_file.write(f'{user_id} , {user_firstname} , {ctime()}\n')
+        UsersList_file = open('DataBase/UsersList.txt' , 'a')
+        UsersList_file.write(f'{user_id} , {user_firstname} , {ctime()}\n')
+        close(UsersList_file)
     except: # The file exists already
         pass
 
