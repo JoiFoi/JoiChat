@@ -6,6 +6,7 @@ import json
 bot_token = <bot_token> # Replace <bot_token> with your actual bot token
 chatSonic_token = <chatSonic_token> # Replace <chatSonic_token> with your actual ChatSonic token
 
+# Generate request links (https://core.telegram.org/bots/api#making-requests)
 def requestLink(method_name):
     return f'https://api.telegram.org/bot{bot_token}/{method_name}'
 
@@ -21,8 +22,9 @@ def get_updates(offset = None):
 
 # Send a message to a user or group that sent a message to your bot
 def send_message(chat_id, text_to_send):
-    requests.post(requestLink('sendMessage') , {'chat_id' : chat_id , 'text' : text_to_send})
+    requests.post(requestLink('sendMessage') , {'chat_id' : chat_id , 'text' : text_to_send , 'disable_web_page_preview' : True})
 
+# Connect to ChatSonic API and send requests
 def chatsonic_API(chat_id , text_received):
     payload = {
     "enable_google_results": True,
@@ -36,7 +38,8 @@ def chatsonic_API(chat_id , text_received):
     }
     send_message(chat_id , requests.post('https://api.writesonic.com/v2/business/content/chatsonic?engine=premium' , json=payload, headers=headers).json()['message'])
 
-def message_checker(update_content):
+# Process user messages to send a proper response to them
+def message_handler(update_content):
     if update_content['result'][0]['message']['text'] == '/start': # /start
         send_message(update_content['result'][0]['message']['chat']['id'] , open('PreWrittenMessages/start.txt' , mode = 'r').read())
         send_message(update_content['result'][0]['message']['chat']['id'] , 'Hello, how may I assist you today?')
@@ -56,7 +59,7 @@ def main():
             if len(get_updates(last_update_id)['result'][0]) > 0: # There's a new message!
                 update_content = get_updates(last_update_id)
                 last_update_id = update_content['result'][0]['update_id'] + 1
-                message_checker(update_content)
+                message_handler(update_content)
         except:
             pass
 
